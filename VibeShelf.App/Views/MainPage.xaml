@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2021/maui/toolkit"
+             x:Class="VibeShelf.App.Views.MainPage"
+             xmlns:viewModel="clr-namespace:VibeShelf.App.ViewModels"
+             xmlns:models="clr-namespace:VibeShelf.App.Models"
+             Title="Home"
+             x:DataType="viewModel:MainPageViewModel">
+
+    <Shell.TitleView>
+        <HorizontalStackLayout VerticalOptions="Fill">
+            <Label Text="Home" TextColor="White" VerticalTextAlignment="Center" FontSize="20" />
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15" Margin="0,40,0,0">
+            <!-- Image at the top -->
+            <Image Source="main.png" Aspect="AspectFit" HeightRequest="200" HorizontalOptions="Center" />
+
+            <!-- Welcome Message -->
+            <Label Text="Welcome to ReadBox!" 
+                   FontSize="28" 
+                   FontAttributes="Bold" 
+                   HorizontalOptions="Center" 
+                   TextColor="White" />
+
+            <!-- Motivational Quote -->
+            <Label Text="A room without books is like a body without a soul." 
+                   FontSize="16" 
+                   HorizontalOptions="Center" 
+                   TextColor="#AAAAAA"
+                   Margin="0,5,0,15"/>
+
+            <!-- App Description -->
+            <Label Text="Your personal book collection manager, developed as a university project."
+                   FontSize="18"
+                   HorizontalOptions="Center"
+                   WidthRequest="200"
+                   TextColor="Gray"
+                   Margin="0,10,0,0"/>
+
+            <!-- Search Button -->
+            <Button Text="Go to Search" 
+                    BackgroundColor="#333" 
+                    TextColor="White" 
+                    Margin="0,20,0,0"
+                    Command="{Binding GoToSearchPageCommand}"/>
+
+            <!-- Popular Books Section -->
+            <HorizontalStackLayout Spacing="5" HorizontalOptions="Start">
+                <Image Source="iconredtinder.png" HeightRequest="24" WidthRequest="24" Margin="0,20,0,0"/>
+                <Label Text="Popular Books" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   VerticalOptions="Center" 
+                   TextColor="White"
+                   Margin="0,30,0,10" />
+            </HorizontalStackLayout>
+
+            <!-- Static Popular Books with Horizontal Scroll -->
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Always">
+                <HorizontalStackLayout Spacing="10" Padding="5">
+                    <!-- Book 1 -->
+                    <StackLayout Padding="5" Margin="5">
+                        <Frame BorderColor="#333" CornerRadius="10" HasShadow="True" BackgroundColor="#1E1E1E">
+                            <Image Source="book1984.png" 
+                       Aspect="AspectFill" 
+                       HeightRequest="150" 
+                       WidthRequest="100" 
+                       Margin="5" />
+                        </Frame>
+                        <Label Text="1984" 
+                   FontSize="16" 
+                   HorizontalOptions="Center" 
+                   TextColor="White" 
+                   Margin="0,5,0,0"/>
+                    </StackLayout>
+
+                    <!-- Book 2 -->
+                    <StackLayout Padding="5" Margin="5">
+                        <Frame BorderColor="#333" CornerRadius="10" HasShadow="True" BackgroundColor="#1E1E1E">
+                            <Image Source="booktokill.png" 
+                       Aspect="AspectFill" 
+                       HeightRequest="150" 
+                       WidthRequest="100" 
+                       Margin="5" />
+                        </Frame>
+                        <Label Text="To Kill a Mockingbird" 
+                   FontSize="16" 
+                   HorizontalOptions="Center" 
+                   TextColor="White" 
+                   Margin="0,5,0,0"/>
+                    </StackLayout>
+
+                    <!-- Book 3 -->
+                    <StackLayout Padding="5" Margin="5">
+                        <Frame BorderColor="#333" CornerRadius="10" HasShadow="True" BackgroundColor="#1E1E1E">
+                            <Image Source="bookpride.png" 
+                       Aspect="AspectFill" 
+                       HeightRequest="150" 
+                       WidthRequest="100" 
+                       Margin="5" />
+                        </Frame>
+                        <Label Text="Pride and Prejudice" 
+                   FontSize="16" 
+                   HorizontalOptions="Center" 
+                   TextColor="White" 
+                   Margin="0,5,0,0"/>
+                    </StackLayout>
+                </HorizontalStackLayout>
+            </ScrollView>
+
+
+            <!-- Latest Added Books Section -->
+            <HorizontalStackLayout Spacing="5" HorizontalOptions="Start" Margin="0,50,0,0">
+                <Image Source="recentlyicon.png" HeightRequest="24" WidthRequest="24" Margin="0,20,0,0"/>
+                <Label Text="Recently Added" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   VerticalOptions="Center" 
+                   TextColor="White"
+                   Margin="0,30,0,10" />
+            </HorizontalStackLayout>
+
+            <CollectionView ItemsSource="{Binding RecentlyAddedBooks}">
+                <CollectionView.EmptyView>
+                    <Label Text="You don't have any books on the list." 
+                       FontSize="18" 
+                       TextColor="Pink" 
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Center" />
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:FavoriteBook">
+                        <StackLayout Orientation="Horizontal" Spacing="5" Padding="10,0,0,0" Margin="0,10,0,0">
+                            <Label Text="-" FontSize="16" TextColor="Bisque" VerticalTextAlignment="Center" />
+                            <Label Text="{Binding Name}" FontSize="16" TextColor="#AAAAAA" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            
+
+            <!-- Suggested Books Section -->
+            <HorizontalStackLayout Spacing="5" HorizontalOptions="Start" Margin="0,60,0,0">
+                <Image Source="icontick.png" HeightRequest="24" WidthRequest="24" Margin="0,20,0,0"/>
+                <Label Text="Suggested Books" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   VerticalOptions="Center" 
+                   TextColor="White"
+                   Margin="0,30,0,10" />
+            </HorizontalStackLayout>
+
+
+            <!-- Static Suggested Books -->
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Always">
+                <HorizontalStackLayout Spacing="10">
+                    <!-- Suggested Book 1 -->
+                    <StackLayout Padding="5" Margin="5">
+                        <Frame BorderColor="#333" CornerRadius="10" HasShadow="True" BackgroundColor="#1E1E1E">
+                            <Image Source="booktheroad.png" 
+                               Aspect="AspectFill" 
+                               HeightRequest="150" 
+                               WidthRequest="100" 
+                               Margin="5" />
+                        </Frame>
+                        <Label Text="The Road" 
+                           FontSize="16" 
+                           HorizontalOptions="Center" 
+                           TextColor="White" 
+                           Margin="0,5,0,0"/>
+                    </StackLayout>
+
+                    <!-- Suggested Book 2 -->
+                    <StackLayout Padding="5" Margin="5">
+                        <Frame BorderColor="#333" CornerRadius="10" HasShadow="True" BackgroundColor="#1E1E1E">
+                            <Image Source="book451.png" 
+                               Aspect="AspectFill" 
+                               HeightRequest="150" 
+                               WidthRequest="100" 
+                               Margin="5" />
+                        </Frame>
+                        <Label Text="Fahrenheit 451" 
+                           FontSize="16" 
+                           HorizontalOptions="Center" 
+                           TextColor="White" 
+                           Margin="0,5,0,0"/>
+                                              
+                    </StackLayout>
+
+                    <!-- Suggested Book 3 -->
+                    <StackLayout Padding="5" Margin="5">
+                        <Frame BorderColor="#333" CornerRadius="10" HasShadow="True" BackgroundColor="#1E1E1E">
+                            <Image Source="booktokill.png" 
+                               Aspect="AspectFill" 
+                               HeightRequest="150" 
+                               WidthRequest="100" 
+                               Margin="5" />
+                        </Frame>
+                        <Label Text="To Kill a Mockingbird" 
+                           FontSize="16" 
+                           HorizontalOptions="Center" 
+                           TextColor="White" 
+                           Margin="0,5,0,0"/>
+                    </StackLayout>
+
+                    <!-- Suggested Book 4 -->
+                    <StackLayout Padding="5" Margin="5">
+                        <Frame BorderColor="#333" CornerRadius="10" HasShadow="True" BackgroundColor="#1E1E1E">
+                            <Image Source="book19822.png" 
+                               Aspect="AspectFill" 
+                               HeightRequest="150" 
+                               WidthRequest="100" 
+                               Margin="5" />
+                        </Frame>
+                        <Label Text="1984" 
+                           FontSize="16" 
+                           HorizontalOptions="Center" 
+                           TextColor="White" 
+                           Margin="0,5,0,0"/>
+                    </StackLayout>
+                </HorizontalStackLayout>
+            </ScrollView>
+            
+           
+            <!-- Book of the Day -->
+            <Frame Margin="0,60,0,0" BackgroundColor="Black" CornerRadius="50" BorderColor="White">
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label Text="Book of the Day: The Great Gatsby" 
+                       FontSize="20" 
+                       FontAttributes="Italic" 
+                       HorizontalOptions="Center" 
+                       TextColor="LightBlue" />
+                </StackLayout>
+            </Frame>
+
+
+            <!-- Quick Access Buttons -->
+            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center" Margin="0,40,0,0">
+                <!-- Favorites Button -->
+                <Button Text="Favorites list   📃" 
+                        BackgroundColor="#333" 
+                        TextColor="White"
+                        CornerRadius="10" 
+                        WidthRequest="120" 
+                        HeightRequest="40" 
+                        Command="{Binding GoToFavoritesPageCommand}"/>
+
+                <!-- Search Button -->
+                <Button Text="Search online 🔍" 
+                        BackgroundColor="White" 
+                        TextColor="#333" 
+                        CornerRadius="10" 
+                        WidthRequest="120" 
+                        HeightRequest="40" 
+                        Command="{Binding GoToSearchPageCommand}"/>
+            </HorizontalStackLayout>
+
+            <!-- Footer Section -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,30,0,0" Padding="10">
+                <Label Text="Created By ILIA With" FontSize="14" TextColor="Gray"/>
+                <Label Text=" ❣️" FontSize="14" TextColor="red"/>
+                <Label Text=" | " FontSize="14" TextColor="Gray"/>
+                <Label Text="Privacy Policy" FontSize="14" TextColor="Gray"/>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

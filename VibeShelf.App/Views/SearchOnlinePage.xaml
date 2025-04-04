@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VibeShelf.App.Views.SearchOnlinePage"
+             Title="Search Online Page"
+             xmlns:models="clr-namespace:VibeShelf.App.Models"
+             xmlns:viewModel="clr-namespace:VibeShelf.App.ViewModels"
+             x:DataType="viewModel:SearchViewModel">
+
+    <Shell.TitleView>
+        <HorizontalStackLayout VerticalOptions="Fill">
+            <Label Text="Search Online" TextColor="White"  VerticalTextAlignment="Center"  FontSize="20" />
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10">
+            <!-- Search Entry and Button -->
+            <Border StrokeShape="RoundRectangle 22" 
+                        HeightRequest="44" 
+                        StrokeThickness="0">
+                <Entry Placeholder="Enter book title..." Text="{Binding SearchText}" />
+
+            </Border>
+            <Button Text="Search" 
+                Command="{Binding SearchBooksCommand}" 
+                ImageSource="searchblack.png" 
+                ContentLayout="Left,5"
+                HeightRequest="40"
+                IsEnabled="{Binding IsNotSearching}"
+                BackgroundColor="Lavender" />
+
+            <!-- Loading indicator -->
+            <ActivityIndicator IsRunning="{Binding IsLoading}" Color="White" />
+
+            <!-- Collection View for Search Results -->
+            <CollectionView ItemsSource="{Binding SearchResults}">
+                <CollectionView.EmptyView>
+                    <Label Text="No Results ..." 
+                       FontSize="20" 
+                       TextColor="AntiqueWhite"                
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Center" />
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Book">
+                        <Border Padding="5" Margin="10" StrokeShape="RoundRectangle 8" >
+                            <Grid Padding="10" ColumnDefinitions="*, Auto">
+                                <!-- Left side: Title, Author, Description -->
+                                <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" FontSize="18" TextColor="White" />
+                                        <Label Text="{Binding Author}" FontSize="14" TextColor="Bisque" />
+                                    </StackLayout>
+                                    <StackLayout HorizontalOptions="Start">
+                                        <!-- Direct Command Binding to ViewModel -->
+                                        <Button Text="Add to favorite list"
+                                             TextColor="White"
+                                             HeightRequest="30" 
+                                             Margin="0,15,0,0"
+                                             BackgroundColor="#dc3545"
+                                             Command="{Binding AddToFavoriteCommand, Source={RelativeSource AncestorType={x:Type viewModel:SearchViewModel}}, x:DataType=viewModel:SearchViewModel}"
+                                             CommandParameter="{Binding .}"/>
+                                    </StackLayout>
+                                </VerticalStackLayout>
+
+                                <!-- Right side: Book cover image -->
+                                <Image Grid.Column="1" Source="{Binding Thumbnail}" HeightRequest="120" WidthRequest="80" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
