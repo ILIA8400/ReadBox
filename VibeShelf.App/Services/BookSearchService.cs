@@ -46,7 +46,7 @@ namespace VibeShelf.App.Services
                 Console.WriteLine($"Error fetching books: {ex.Message}");
             }
 
-            return books.Take(10).ToList();
+            return books.Take(50).ToList();
         }
     }
 
