@@ -40,7 +40,30 @@ namespace VibeShelf.App.Services
         }
 
         // حذف کتاب از لیست علاقه‌مندی‌ها بر اساس Id
-        public int RemoveFavoriteBook(int id) => _database.Delete<FavoriteBook>(id);
+        public async Task<int> RemoveFavoriteBook(int id)
+        {
+            var book = _database.Find<FavoriteBook>(id);
+            if (book != null)
+            {
+                // اگر مسیر تصویر وجود داشت، حذف کن
+                if (!string.IsNullOrEmpty(book.Thumbnail) && File.Exists(book.Thumbnail))
+                {
+                    try
+                    {
+                        File.Delete(book.Thumbnail);
+                    }
+                    catch (Exception ex)
+                    {
+                        await AppShell.DisplaySnackbarAsync($"❌ Error deleting image file: {ex.Message}");
+                    }
+                }
+
+                return _database.Delete<FavoriteBook>(id);
+            }
+
+            return 0; // کتابی با این آیدی پیدا نشد
+        }
+
 
         // دریافت لیست کتاب‌های مورد علاقه
         public List<FavoriteBook> GetFavoriteBooks() => _database.Table<FavoriteBook>().ToList();

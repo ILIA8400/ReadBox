@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using VibeShelf.App.Views;
 
 namespace VibeShelf.App
 {
@@ -7,6 +8,8 @@ namespace VibeShelf.App
     {
         public AppShell()
         {
+            Routing.RegisterRoute(nameof(NewFavoritePage), typeof(NewFavoritePage));
+
             InitializeComponent();
         }
 

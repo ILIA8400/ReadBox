@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using VibeShelf.App.Models;
 using VibeShelf.App.Services;
+using VibeShelf.App.Views;
 
 namespace VibeShelf.App.ViewModels
 {
@@ -39,5 +40,28 @@ namespace VibeShelf.App.ViewModels
             
             await AppShell.DisplayToastAsync("Item was Remove");
         }
+
+        [RelayCommand]
+        public async Task New()
+        {
+
+            await Shell.Current.GoToAsync(nameof(NewFavoritePage),true);
+        }
+
+        [RelayCommand]
+        private async Task EditFavoriteBook(FavoriteBook book)
+        {
+            if (book == null)
+                return;
+
+            // می‌فرستیمش به صفحه افزودن، ولی با اطلاعات اولیه
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "BookToEdit", book }
+            };
+
+            await Shell.Current.GoToAsync(nameof(NewFavoritePage), navigationParameter);
+        }
+
     }
 }

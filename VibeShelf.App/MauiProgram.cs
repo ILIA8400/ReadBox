@@ -26,6 +26,7 @@ namespace VibeShelf.App
             builder.Services.AddSingleton<IBookSearchService, BookSearchService>();
 
             builder.Services.AddSingleton<FavoriteViewModel>();
+            builder.Services.AddSingleton<NewFavoritePageViewModel>();
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<SearchViewModel>();
             builder.Services.AddSingleton(new FavoriteBookService(dbPath));
