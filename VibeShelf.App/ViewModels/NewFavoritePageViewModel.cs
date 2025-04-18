@@ -54,6 +54,11 @@ namespace VibeShelf.App.ViewModels
             {
                 PageTitle = "Add Book";
                 SubmitButtonText = "Add to Favorites";
+
+                BookToEdit = null;
+                Title = string.Empty;
+                Author = string.Empty;
+                CoverImage = "placeholder.png";
             }
         }
 

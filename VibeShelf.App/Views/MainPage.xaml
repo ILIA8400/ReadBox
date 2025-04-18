@@ -122,7 +122,6 @@
                    TextColor="White"
                    Margin="0,30,0,10" />
             </HorizontalStackLayout>
-            
 
             <CollectionView ItemsSource="{Binding RecentlyAddedBooks}">
                 <CollectionView.EmptyView>
@@ -142,7 +141,43 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            
+            <Border Stroke="#CCCCCC"
+                StrokeThickness="1"
+                BackgroundColor="#1E1E1E"
+                Padding="15"
+                Margin="20,40,20,0"
+                StrokeShape="RoundRectangle 12">
+
+                <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
+
+                    <!-- عنوان پادکست -->
+                    <VerticalStackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="Podcast: Hidden Gems" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           TextColor="White" />
+                        <Label Text="A curated podcast for book lovers" 
+                           FontSize="14" 
+                           TextColor="#BBBBBB" />
+                    </VerticalStackLayout>
+
+                    <!-- دکمه پخش/پاز -->
+                    <Button 
+                        Text="{Binding PlayPauseIcon}"
+                        Command="{Binding TogglePodcastCommand}"
+                        FontSize="30"
+                        BackgroundColor="Transparent"
+                        TextColor="White"
+                        WidthRequest="60"
+                        HeightRequest="60"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center" />
+
+                </HorizontalStackLayout>
+            </Border>
+
+
+
 
             <!-- Suggested Books Section -->
             <HorizontalStackLayout Spacing="5" HorizontalOptions="Start" Margin="0,60,0,0">
